@@ -27,8 +27,14 @@ export const toggleFavorite = game => prevState => {
     };
 };
 
+export const toggleView = view => () => {
+    console.log(view);
+    return { currentView: view };
+};
+
 export const defaultState = {
     currentTab: 1,
+    currentView: "grid",
     fetched: false,
     games: [],
     search: "",
@@ -38,6 +44,7 @@ export const defaultState = {
     updateGamesList: () => {},
     resetSearch: () => {},
     toggleFavorite: () => {},
+    toggleView: () => {},
 };
 
 export const AppContext = React.createContext(defaultState);

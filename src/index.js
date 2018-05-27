@@ -8,6 +8,7 @@ import {
     updateGamesList,
     resetSearch,
     toggleFavorite,
+    toggleView,
 } from "./Store";
 import Main from "./views/Main";
 import { getGames } from "./API";
@@ -21,6 +22,7 @@ class App extends React.Component {
             updateGamesList: list => this.setState(updateGamesList(list)),
             resetSearch: () => this.setState(resetSearch),
             toggleFavorite: game => this.setState(toggleFavorite(game)),
+            toggleView: view => this.setState(toggleView(view)),
         };
     }
 

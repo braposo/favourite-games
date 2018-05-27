@@ -1,8 +1,11 @@
 import React from "react";
 import { Card, Icon, Button, Tooltip, Modal } from "antd";
-import { CardWrapper, ModalImage } from "./UI";
+import { ModalImage } from "./UI";
+import styled from "react-emotion";
 
 const { Meta } = Card;
+
+export const CardWrapper = styled("div")({});
 
 class CardComponent extends React.Component {
     constructor(props) {

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "react-emotion";
-import { Icon, Input, List } from "antd";
-import Card from "./Card";
+import { Icon, Input } from "antd";
 
 export const scale = [4, 8, 16, 24, 32, 40, 48, 64, 128];
+
 export const palette = {
     main: "#f6f3ee",
 };
@@ -38,8 +38,6 @@ export const Loading = styled(LoadingButton)({
     fontSize: 32,
 });
 
-export const CardWrapper = styled("div")({});
-
 export const ModalImage = styled("img")(props => ({
     backgroundImage: `url(${props.image})`,
     backgroundSize: "cover",
@@ -52,25 +50,3 @@ export const ModalImage = styled("img")(props => ({
 export const SearchInput = styled(Input)({
     width: "100%",
 });
-
-export const CardResults = ({ games, context, onFavClick, isFav, isLoading }) => {
-    return (
-        <List
-            loading={isLoading}
-            grid={{ gutter: scale[2], xs: 1, sm: 2, md: 3, lg: 4 }}
-            dataSource={games}
-            renderItem={game => {
-                return (
-                    <List.Item>
-                        <Card
-                            name={game.name}
-                            short={game.short}
-                            isFav={isFav(game)}
-                            onFavClick={onFavClick(game)}
-                        />
-                    </List.Item>
-                );
-            }}
-        />
-    );
-};
