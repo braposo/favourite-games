@@ -1,4 +1,6 @@
+import React from "react";
 import styled from "react-emotion";
+import { Icon } from "antd";
 
 export const scale = [4, 8, 16, 24, 32, 40, 48, 64, 128];
 export const palette = {
@@ -28,3 +30,22 @@ export const Logo = styled("div")({
         marginLeft: "auto",
     },
 });
+
+const LoadingButton = props => <Icon type="loading" {...props} />;
+export const Loading = styled(LoadingButton)({
+    display: "block",
+    fontSize: 32,
+});
+
+export const CardWrapper = styled("div")({
+    marginBottom: scale[2],
+});
+
+export const ModalImage = styled("img")(props => ({
+    backgroundImage: `url(${props.image})`,
+    backgroundSize: "cover",
+    display: "block",
+    width: "100%",
+    height: 200,
+    marginBottom: scale[2],
+}));

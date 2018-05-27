@@ -12,6 +12,7 @@ export const updateSearch = search => prevState => ({
 export const updateGamesList = games => () => ({
     games,
     results: games,
+    fetched: true,
 });
 
 // Updates initial games list and reset results to
@@ -28,6 +29,7 @@ export const toggleFavorite = game => prevState => {
 
 export const defaultState = {
     currentTab: 1,
+    fetched: false,
     games: [],
     search: "",
     results: [],

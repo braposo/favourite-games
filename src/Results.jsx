@@ -1,7 +1,7 @@
 import React from "react";
 import { withAppContext } from "./app-context";
 import { Tabs, Row, Col } from "antd";
-import { Content, Count, scale } from "./UI";
+import { Content, Count, scale, Loading } from "./UI";
 import Card from "./Card";
 
 const TabPane = Tabs.TabPane;
@@ -15,7 +15,7 @@ const CardResults = withAppContext(({ games, context }) => {
                       const isFav = context.favorites.includes(game.short);
 
                       return (
-                          <Col span={6} key={i}>
+                          <Col span={6} key={game.short}>
                               <Card
                                   name={game.name}
                                   short={game.short}
@@ -25,7 +25,7 @@ const CardResults = withAppContext(({ games, context }) => {
                           </Col>
                       );
                   })
-                : "no games matching"}
+                : "No games matching"}
         </Row>
     );
 });
@@ -52,13 +52,11 @@ const Results = ({ context }) => {
     return (
         <Tabs defaultActiveKey={String(context.currentTab)}>
             <TabPane tab={getTabTitle(games, context.games, "All games")} key="1">
-                <Content>
-                    <CardResults games={games} />
-                </Content>
+                <Content>{!context.fetched ? <Loading /> : <CardResults games={games} />}</Content>
             </TabPane>
             <TabPane tab={getTabTitle(favorites, context.favorites, "Favorites")} key="2">
                 <Content>
-                    <CardResults games={favorites} />
+                    {!context.fetched ? <Loading /> : <CardResults games={favorites} />}
                 </Content>
             </TabPane>
         </Tabs>
