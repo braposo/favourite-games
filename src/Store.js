@@ -33,7 +33,7 @@ export const defaultState = {
     games: [],
     search: "",
     results: [],
-    favorites: ["eightballpool"], // TODO: remove this
+    favorites: [],
     updateSearch: () => {},
     updateGamesList: () => {},
     resetSearch: () => {},

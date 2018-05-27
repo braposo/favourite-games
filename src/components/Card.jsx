@@ -28,7 +28,7 @@ class CardComponent extends React.Component {
                     cover={
                         <img
                             alt={`Game screenshot for ${name}`}
-                            src={`https://royal1.midasplayer.com/images/games/${short}/tournamentPage/${short}_764x260.jpg`}
+                            src={`https://royal1.midasplayer.com/images/games/${short}/${short}_170x80.gif`}
                         />
                     }
                     actions={[

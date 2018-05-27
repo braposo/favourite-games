@@ -11,7 +11,6 @@ const Header = () => (
             />
         </Logo>
         <h1>Favorite Games</h1>
-
         <Search />
     </Content>
 );

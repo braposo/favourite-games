@@ -8,8 +8,8 @@ import {
     updateGamesList,
     resetSearch,
     toggleFavorite,
-} from "./app-context";
-import Main from "./Main";
+} from "./Store";
+import Main from "./views/Main";
 import { getGames } from "./API";
 
 class App extends React.Component {

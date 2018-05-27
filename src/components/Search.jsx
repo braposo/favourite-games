@@ -1,12 +1,7 @@
 import React from "react";
-import { Content } from "./UI";
-import { Input, Icon } from "antd";
-import styled from "react-emotion";
-import { withAppContext } from "./app-context";
-
-const SearchInput = styled(Input)({
-    width: "100%",
-});
+import { SearchInput } from "./UI";
+import { Icon } from "antd";
+import { withAppContext } from "../Store";
 
 const Search = ({ context }) => {
     let searchInput = null;

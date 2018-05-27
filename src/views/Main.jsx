@@ -1,6 +1,6 @@
 import React from "react";
-import Results from "./Results";
-import Header from "./Header";
+import Results from "../components/Results";
+import Header from "../components/Header";
 
 const Main = () => (
     <div>
