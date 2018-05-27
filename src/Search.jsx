@@ -16,7 +16,7 @@ const Search = ({ context }) => {
     };
 
     const handleClear = () => {
-        context.resetSearch();
+        context.updateSearch("");
         searchInput.focus();
     };
 

@@ -4,13 +4,7 @@ import { searchGames } from "./API";
 // Updates search term and associated results
 export const updateSearch = search => prevState => ({
     search,
-    results: searchGames(prevState.games, search),
-});
-
-// Resets search term and associated results
-export const resetSearch = prevState => ({
-    search: "",
-    results: prevState.games,
+    results: search.length ? searchGames(prevState.games, search) : prevState.games,
 });
 
 // Updates initial games list and reset results to
@@ -25,7 +19,7 @@ export const defaultState = {
     games: [],
     search: "",
     results: [],
-    favorites: [],
+    favorites: ["eightballpool"], // TODO: remove this
     updateSearch: () => {},
     updateGamesList: () => {},
     resetSearch: () => {},
