@@ -7,7 +7,7 @@ const { Meta } = Card;
 
 export const CardWrapper = styled("div")({});
 
-class CardComponent extends React.Component {
+class CardItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -76,4 +76,4 @@ class CardComponent extends React.Component {
     }
 }
 
-export default CardComponent;
+export default CardItem;

@@ -1,23 +1,21 @@
 import React from "react";
 import { SearchInput } from "./UI";
 import { Icon } from "antd";
-import { withAppContext } from "../Store";
+import { withAppStore } from "../Store";
 
-const Search = ({ context }) => {
+const Search = ({ store }) => {
     let searchInput = null;
 
     const handleChange = e => {
-        context.updateSearch(e.target.value);
+        store.updateSearch(e.target.value);
     };
 
     const handleClear = () => {
-        context.updateSearch("");
+        store.updateSearch("");
         searchInput.focus();
     };
 
-    const suffix = context.search.length ? (
-        <Icon type="close-circle" onClick={handleClear} />
-    ) : null;
+    const suffix = store.search.length ? <Icon type="close-circle" onClick={handleClear} /> : null;
 
     return (
         <SearchInput
@@ -25,7 +23,7 @@ const Search = ({ context }) => {
             prefix={<Icon type="search" />}
             suffix={suffix}
             onChange={handleChange}
-            value={context.search}
+            value={store.search}
             innerRef={node => {
                 searchInput = node;
             }}
@@ -34,4 +32,4 @@ const Search = ({ context }) => {
     );
 };
 
-export default withAppContext(Search);
+export default withAppStore(Search);

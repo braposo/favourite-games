@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import "antd/dist/antd.css";
 import {
-    AppContext,
+    AppStore,
     defaultState,
     updateSearch,
     updateGamesList,
@@ -35,9 +35,9 @@ class App extends React.Component {
 
     render() {
         return (
-            <AppContext.Provider value={this.state}>
+            <AppStore.Provider value={this.state}>
                 <Main />
-            </AppContext.Provider>
+            </AppStore.Provider>
         );
     }
 }

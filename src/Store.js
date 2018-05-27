@@ -27,10 +27,8 @@ export const toggleFavorite = game => prevState => {
     };
 };
 
-export const toggleView = view => () => {
-    console.log(view);
-    return { currentView: view };
-};
+// Toggles between grid and list views
+export const toggleView = view => () => ({ currentView: view });
 
 export const defaultState = {
     currentTab: 1,
@@ -47,11 +45,9 @@ export const defaultState = {
     toggleView: () => {},
 };
 
-export const AppContext = React.createContext(defaultState);
+export const AppStore = React.createContext(defaultState);
 
 // HOC to use App Context
-export const withAppContext = Component => props => (
-    <AppContext.Consumer>
-        {context => <Component {...props} context={context} />}
-    </AppContext.Consumer>
+export const withAppStore = Component => props => (
+    <AppStore.Consumer>{store => <Component {...props} store={store} />}</AppStore.Consumer>
 );

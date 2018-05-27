@@ -1,11 +1,11 @@
 import React from "react";
-import { withAppContext } from "../Store";
+import { withAppStore } from "../Store";
 import { Tabs, Radio, Icon, List } from "antd";
 import { Content, Count, scale } from "./UI";
-import Card from "./Card";
+import CardItem from "./CardItem";
 import ListItem from "./ListItem";
 
-export const CardResults = ({ games, context, onFavClick, isFav, isLoading }) => {
+const CardResults = ({ games, onFavClick, isFav, isLoading }) => {
     return (
         <List
             loading={isLoading}
@@ -13,7 +13,7 @@ export const CardResults = ({ games, context, onFavClick, isFav, isLoading }) =>
             dataSource={games}
             renderItem={game => (
                 <List.Item>
-                    <Card
+                    <CardItem
                         name={game.name}
                         short={game.short}
                         isFav={isFav(game)}
@@ -25,7 +25,7 @@ export const CardResults = ({ games, context, onFavClick, isFav, isLoading }) =>
     );
 };
 
-export const ListResults = ({ games, context, onFavClick, isFav, isLoading }) => {
+const ListResults = ({ games, onFavClick, isFav, isLoading }) => {
     return (
         <List
             loading={isLoading}
@@ -44,13 +44,13 @@ export const ListResults = ({ games, context, onFavClick, isFav, isLoading }) =>
     );
 };
 
-const Results = ({ context }) => {
-    const hasSearch = context.search.length;
-    const games = context.results;
-    const favorites = context.results.filter(game => context.favorites.includes(game.short));
-    const handleFavClick = game => () => context.toggleFavorite(game.short);
-    const handleViewChange = e => context.toggleView(e.target.value);
-    const isFav = game => context.favorites.includes(game.short);
+const Results = ({ store }) => {
+    const hasSearch = store.search.length;
+    const games = store.results;
+    const favorites = store.results.filter(game => store.favorites.includes(game.short));
+    const handleFavClick = game => () => store.toggleFavorite(game.short);
+    const handleViewChange = e => store.toggleView(e.target.value);
+    const isFav = game => store.favorites.includes(game.short);
 
     const getTabTitle = (list, base, label) =>
         hasSearch ? (
@@ -66,15 +66,15 @@ const Results = ({ context }) => {
             </span>
         );
 
-    const ResultsComponent = context.currentView === "grid" ? CardResults : ListResults;
+    const ResultsComponent = store.currentView === "grid" ? CardResults : ListResults;
 
     return (
         <Tabs
-            defaultActiveKey={String(context.currentTab)}
+            defaultActiveKey={String(store.currentTab)}
             tabBarExtraContent={
                 <div style={{ marginRight: scale[2] }}>
                     <Radio.Group
-                        defaultValue={context.currentView}
+                        defaultValue={store.currentView}
                         onChange={handleViewChange}
                         size="small"
                     >
@@ -88,23 +88,23 @@ const Results = ({ context }) => {
                 </div>
             }
         >
-            <Tabs.TabPane tab={getTabTitle(games, context.games, "All games")} key="1">
+            <Tabs.TabPane tab={getTabTitle(games, store.games, "All games")} key="1">
                 <Content>
                     <ResultsComponent
                         games={games}
                         onFavClick={handleFavClick}
                         isFav={isFav}
-                        isLoading={!context.fetched}
+                        isLoading={!store.fetched}
                     />
                 </Content>
             </Tabs.TabPane>
-            <Tabs.TabPane tab={getTabTitle(favorites, context.favorites, "Favorites")} key="2">
+            <Tabs.TabPane tab={getTabTitle(favorites, store.favorites, "Favorites")} key="2">
                 <Content>
                     <ResultsComponent
                         games={favorites}
                         onFavClick={handleFavClick}
                         isFav={isFav}
-                        isLoading={!context.fetched}
+                        isLoading={!store.fetched}
                     />
                 </Content>
             </Tabs.TabPane>
@@ -112,4 +112,4 @@ const Results = ({ context }) => {
     );
 };
 
-export default withAppContext(Results);
+export default withAppStore(Results);
