@@ -25,17 +25,17 @@ const Search = ({ context }) => {
     ) : null;
 
     return (
-        <Content>
-            <SearchInput
-                prefix={<Icon type="search" />}
-                suffix={suffix}
-                onChange={handleChange}
-                value={context.search}
-                innerRef={node => {
-                    searchInput = node;
-                }}
-            />
-        </Content>
+        <SearchInput
+            placeholder="Start typing name of game..."
+            prefix={<Icon type="search" />}
+            suffix={suffix}
+            onChange={handleChange}
+            value={context.search}
+            innerRef={node => {
+                searchInput = node;
+            }}
+            size="large"
+        />
     );
 };
 

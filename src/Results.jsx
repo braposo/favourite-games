@@ -1,16 +1,39 @@
 import React from "react";
 import { withAppContext } from "./app-context";
-import { Tabs } from "antd";
-import { Content, Count } from "./UI";
+import { Tabs, Row, Col } from "antd";
+import { Content, Count, scale } from "./UI";
+import Card from "./Card";
 
 const TabPane = Tabs.TabPane;
 
+const CardResults = withAppContext(({ games, context }) => {
+    const handleFavClick = game => () => context.toggleFavorite(game.short);
+    return (
+        <Row gutter={scale[2]}>
+            {games.length
+                ? games.map((game, i) => {
+                      const isFav = context.favorites.includes(game.short);
+
+                      return (
+                          <Col span={6} key={i}>
+                              <Card
+                                  name={game.name}
+                                  short={game.short}
+                                  isFav={isFav}
+                                  onFavClick={handleFavClick(game)}
+                              />
+                          </Col>
+                      );
+                  })
+                : "no games matching"}
+        </Row>
+    );
+});
+
 const Results = ({ context }) => {
     const hasSearch = context.search.length;
-    const games = context.results.map(game => (hasSearch ? game.item.name : game.name));
-    const favorites = context.results
-        .filter(game => context.favorites.includes(hasSearch ? game.item.short : game.short))
-        .map(game => (hasSearch ? game.item.name : game.name));
+    const games = context.results;
+    const favorites = context.results.filter(game => context.favorites.includes(game.short));
 
     const getTabTitle = (list, base, label) =>
         hasSearch ? (
@@ -29,10 +52,14 @@ const Results = ({ context }) => {
     return (
         <Tabs defaultActiveKey={String(context.currentTab)}>
             <TabPane tab={getTabTitle(games, context.games, "All games")} key="1">
-                <Content>{games.join(", ") || "no games matching"}</Content>
+                <Content>
+                    <CardResults games={games} />
+                </Content>
             </TabPane>
             <TabPane tab={getTabTitle(favorites, context.favorites, "Favorites")} key="2">
-                <Content>{favorites.join(", ") || "no favorites matching"}</Content>
+                <Content>
+                    <CardResults games={favorites} />
+                </Content>
             </TabPane>
         </Tabs>
     );

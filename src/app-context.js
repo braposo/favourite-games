@@ -14,6 +14,18 @@ export const updateGamesList = games => () => ({
     results: games,
 });
 
+// Updates initial games list and reset results to
+// match same list.
+export const toggleFavorite = game => prevState => {
+    if (prevState.favorites.indexOf(game) === -1) {
+        return { favorites: [...prevState.favorites, game] };
+    }
+
+    return {
+        favorites: prevState.favorites.filter(fav => fav !== game),
+    };
+};
+
 export const defaultState = {
     currentTab: 1,
     games: [],
@@ -23,6 +35,7 @@ export const defaultState = {
     updateSearch: () => {},
     updateGamesList: () => {},
     resetSearch: () => {},
+    toggleFavorite: () => {},
 };
 
 export const AppContext = React.createContext(defaultState);

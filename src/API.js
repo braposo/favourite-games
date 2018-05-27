@@ -25,5 +25,5 @@ export const searchGames = (games, search) => {
     };
 
     const fuse = new Fuse(games, fuseOptions);
-    return fuse.search(search);
+    return fuse.search(search).map(game => game.item);
 };

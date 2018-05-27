@@ -7,6 +7,7 @@ import {
     updateSearch,
     updateGamesList,
     resetSearch,
+    toggleFavorite,
 } from "./app-context";
 import Main from "./Main";
 import { getGames } from "./API";
@@ -19,6 +20,7 @@ class App extends React.Component {
             updateSearch: search => this.setState(updateSearch(search)),
             updateGamesList: list => this.setState(updateGamesList(list)),
             resetSearch: () => this.setState(resetSearch),
+            toggleFavorite: game => this.setState(toggleFavorite(game)),
         };
     }
 
