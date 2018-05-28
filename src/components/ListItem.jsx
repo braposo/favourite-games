@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Icon, Button, Tooltip, Modal } from "antd";
 import { ModalImage, scale } from "./UI";
 import styled from "react-emotion";
@@ -82,5 +83,12 @@ class ListItem extends React.Component {
         );
     }
 }
+
+ListItem.propTypes = {
+    name: PropTypes.string.isRequired,
+    short: PropTypes.string.isRequired,
+    onFavClick: PropTypes.func.isRequired,
+    isFav: PropTypes.bool.isRequired,
+};
 
 export default ListItem;

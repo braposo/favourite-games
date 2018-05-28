@@ -1,48 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { withAppStore } from "../Store";
-import { Tabs, Radio, Icon, List } from "antd";
+import { Tabs, Radio, Icon } from "antd";
 import { Content, Count, scale } from "./UI";
-import CardItem from "./CardItem";
-import ListItem from "./ListItem";
-
-const CardResults = ({ games, onFavClick, isFav, isLoading }) => {
-    return (
-        <List
-            loading={isLoading}
-            grid={{ gutter: scale[2], xs: 1, sm: 2, md: 3, lg: 4 }}
-            dataSource={games}
-            renderItem={game => (
-                <List.Item>
-                    <CardItem
-                        name={game.name}
-                        short={game.short}
-                        isFav={isFav(game)}
-                        onFavClick={onFavClick(game)}
-                    />
-                </List.Item>
-            )}
-        />
-    );
-};
-
-const ListResults = ({ games, onFavClick, isFav, isLoading }) => {
-    return (
-        <List
-            loading={isLoading}
-            dataSource={games}
-            renderItem={game => (
-                <List.Item>
-                    <ListItem
-                        name={game.name}
-                        short={game.short}
-                        isFav={isFav(game)}
-                        onFavClick={onFavClick(game)}
-                    />
-                </List.Item>
-            )}
-        />
-    );
-};
+import ResultsView from "./ResultsView";
 
 const Results = ({ store }) => {
     const hasSearch = store.search.length;
@@ -50,7 +11,7 @@ const Results = ({ store }) => {
     const favorites = store.results.filter(game => store.favorites.includes(game.short));
     const handleFavClick = game => () => store.toggleFavorite(game.short);
     const handleViewChange = e => store.toggleView(e.target.value);
-    const isFav = game => store.favorites.includes(game.short);
+    const checkIsFav = game => store.favorites.includes(game.short);
 
     const getTabTitle = (list, base, label) =>
         hasSearch ? (
@@ -66,8 +27,6 @@ const Results = ({ store }) => {
             </span>
         );
 
-    const ResultsComponent = store.currentView === "grid" ? CardResults : ListResults;
-
     return (
         <Tabs
             defaultActiveKey={String(store.currentTab)}
@@ -78,7 +37,7 @@ const Results = ({ store }) => {
                         onChange={handleViewChange}
                         size="small"
                     >
-                        <Radio.Button value="grid">
+                        <Radio.Button data-testid="gridViewButton" value="grid">
                             <Icon type="appstore-o" /> Grid view
                         </Radio.Button>
                         <Radio.Button value="list">
@@ -90,26 +49,32 @@ const Results = ({ store }) => {
         >
             <Tabs.TabPane tab={getTabTitle(games, store.games, "All games")} key="1">
                 <Content>
-                    <ResultsComponent
+                    <ResultsView
+                        view={store.currentView}
                         games={games}
                         onFavClick={handleFavClick}
-                        isFav={isFav}
+                        checkIsFav={checkIsFav}
                         isLoading={!store.fetched}
                     />
                 </Content>
             </Tabs.TabPane>
             <Tabs.TabPane tab={getTabTitle(favorites, store.favorites, "Favorites")} key="2">
                 <Content>
-                    <ResultsComponent
+                    <ResultsView
+                        view={store.currentView}
                         games={favorites}
                         onFavClick={handleFavClick}
-                        isFav={isFav}
+                        checkIsFav={checkIsFav}
                         isLoading={!store.fetched}
                     />
                 </Content>
             </Tabs.TabPane>
         </Tabs>
     );
+};
+
+Results.propTypes = {
+    store: PropTypes.object.isRequired,
 };
 
 export default withAppStore(Results);

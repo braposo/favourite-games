@@ -10,7 +10,7 @@ const Header = () => (
                 src="https://k1.midasplayer.com/images/logos/kingLogoRebrand.svg?_v=13wlhey"
             />
         </Logo>
-        <h1>Favorite Games</h1>
+        <h1 data-testid="h1">Favorite Games</h1>
         <Search />
     </Content>
 );

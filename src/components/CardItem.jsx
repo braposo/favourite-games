@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Card, Icon, Button, Tooltip, Modal } from "antd";
 import { ModalImage } from "./UI";
 import styled from "react-emotion";
@@ -40,11 +41,19 @@ class CardItem extends React.Component {
                                 title={isFav ? "Remove from favorites" : "Add to favorites"}
                                 placement="topLeft"
                             >
-                                <Button type={isFav ? "primary" : "default"} onClick={onFavClick}>
+                                <Button
+                                    data-testid="favButton"
+                                    type={isFav ? "primary" : "default"}
+                                    onClick={onFavClick}
+                                >
                                     <Icon type="star" />
                                 </Button>
                             </Tooltip>
-                            <Button type="default" onClick={this.handleDetailsClick}>
+                            <Button
+                                data-testid="detailsButton"
+                                type="default"
+                                onClick={this.handleDetailsClick}
+                            >
                                 <Icon type="profile" /> More details
                             </Button>
                         </Button.Group>,
@@ -57,6 +66,7 @@ class CardItem extends React.Component {
                     footer={null}
                     visible={this.state.modalOpen}
                     onCancel={this.handleModalClose}
+                    data-testid="modal"
                 >
                     <ModalImage
                         image={`https://royal1.midasplayer.com/images/games/${short}/tournamentPage/${short}_764x260.jpg`}
@@ -75,5 +85,12 @@ class CardItem extends React.Component {
         );
     }
 }
+
+CardItem.propTypes = {
+    name: PropTypes.string.isRequired,
+    short: PropTypes.string.isRequired,
+    onFavClick: PropTypes.func.isRequired,
+    isFav: PropTypes.bool.isRequired,
+};
 
 export default CardItem;

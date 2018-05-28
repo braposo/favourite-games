@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { SearchInput } from "./UI";
 import { Icon } from "antd";
 import { withAppStore } from "../Store";
@@ -19,6 +20,7 @@ const Search = ({ store }) => {
 
     return (
         <SearchInput
+            data-testid="searchInput"
             placeholder="Start typing name of game..."
             prefix={<Icon type="search" />}
             suffix={suffix}
@@ -30,6 +32,10 @@ const Search = ({ store }) => {
             size="large"
         />
     );
+};
+
+Search.propTypes = {
+    store: PropTypes.object.isRequired,
 };
 
 export default withAppStore(Search);
